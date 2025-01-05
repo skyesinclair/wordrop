@@ -14,7 +14,7 @@ public class Cell {
     }
 
     public Cell(int row, int col) {
-        this.character = ' ';
+        this.character = '.';
         this.row = row;
         this.col = col;
     }

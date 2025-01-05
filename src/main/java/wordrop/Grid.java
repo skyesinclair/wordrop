@@ -33,9 +33,9 @@ public void fillRowRandomly(int row) {
     String vowels = "aeiou";
     String consonants = "bcdfghjklmnpqrstvwxyz";
     for (int i = 0; i < cells[row].length; i++) {
-        if (Math.random() < 0.3) { // 40% chance to pick a vowel
+        if (Math.random() < 0.3) { // 30% chance to pick a vowel
             cells[row][i].setCharacter(vowels.charAt((int) (Math.random() * vowels.length())));
-        } else { // 60% chance to pick a consonant
+        } else { // 70% chance to pick a consonant
             cells[row][i].setCharacter(consonants.charAt((int) (Math.random() * consonants.length())));
         }
     }

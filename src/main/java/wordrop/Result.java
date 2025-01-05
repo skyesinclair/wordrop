@@ -20,18 +20,19 @@ private HashSet<Integer> toRemove;
         this.position = position;
         this.words = new HashSet<>();
         this.toRemove = new HashSet<>();
-        findWords(3);
-        findWords(2);
-        findWords(1);
+        findWords();
     }
 
-private void findWords(int start) {
-
-    //check if there is a word that contains the 3 characters before the new character
-if (position >= start && wordContains(str.substring(position - start, position))){
+private void findWords() {
+    //check if there is a word that contains 3 characters touching the new character
+    boolean continueChecking =
+        (position >= 3 && wordContains(str.substring(position - 2, position))) ||
+    (position >= 2 && str.length()-position>=2 && wordContains(str.substring(position - 1, position + 1))) ||
+        (position >= 1 && str.length()-position>=3 && wordContains(str.substring(position, position + 2)));
+if (continueChecking){
     //if so, continue checking to beginning of the string
     //loop through the string from the new character to the beginning
-    for (int i = position-start; i > 0; i--) {
+    for (int i = position-1; i > 0; i--) {
         //if a word starts with the characters from the current position to the new character
         if (wordStartsWith(str.substring(i, position))) {
             //check if the substring is a word and if so add to list

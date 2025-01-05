@@ -10,9 +10,9 @@ public class Result {
     private int position;
     // list of words found in the string
     private HashSet<String> words;
-  // list of positions of characters to remove
-private HashSet<Integer> toRemove;
-//cound of how many times it queried the dictionary
+    // list of positions of characters to remove
+    private HashSet<Integer> toRemove;
+    //cound of how many times it queried the dictionary
     private int queries = 0;
 
     public Result(String str, int position) {
@@ -23,41 +23,40 @@ private HashSet<Integer> toRemove;
         findWords();
     }
 
-private void findWords() {
-    //check if there is a word that contains 3 characters touching the new character
-    boolean continueChecking =
-        (position >= 3 && wordContains(str.substring(position - 2, position))) ||
-    (position >= 2 && str.length()-position>=2 && wordContains(str.substring(position - 1, position + 1))) ||
-        (position >= 1 && str.length()-position>=3 && wordContains(str.substring(position, position + 2)));
-if (continueChecking){
-    //if so, continue checking to beginning of the string
-    //loop through the string from the new character to the beginning
-    for (int i = position-1; i > 0; i--) {
-        //if a word starts with the characters from the current position to the new character
-        if (wordStartsWith(str.substring(i, position))) {
-            //check if the substring is a word and if so add to list
-                addIfWord(i, position);
-                //loop through the string from the new character to the end
-                for (int j = position; j < str.length(); j++) {
-                    //if a word starts with the characters from the new character to the current position
-                    if (wordStartsWith(str.substring(i, j))) {
-                        //check if the substring is a word and if so add to list
-                        addIfWord(i, j);
+    private void findWords() {
+        //check if there is a word that contains 3 characters touching the new character
+        boolean continueChecking =
+                (position >= 3 && wordContains(str.substring(position - 2, position))) ||
+                        (position >= 2 && str.length() - position >= 2 && wordContains(str.substring(position - 1, position + 1))) ||
+                        (position >= 1 && str.length() - position >= 3 && wordContains(str.substring(position, position + 2)));
+        if (continueChecking) {
+            //if so, continue checking to beginning of the string
+            //loop through the string from the new character to the beginning
+            for (int i = position - 1; i > 0; i--) {
+                //if a word starts with the characters from the current position to the new character
+                if (wordStartsWith(str.substring(i, position))) {
+                    //check if the substring is a word and if so add to list
+                    addIfWord(i, position);
+                    //loop through the string from the new character to the end
+                    for (int j = position; j < str.length(); j++) {
+                        //if a word starts with the characters from the new character to the current position
+                        if (wordStartsWith(str.substring(i, j))) {
+                            //check if the substring is a word and if so add to list
+                            addIfWord(i, j);
+                        }
                     }
+
                 }
 
+            }
         }
 
+
+        //once it gets a negative, start checking from the last positive
+        //position to see if a word starts with the characters to the new character
+        //if so, continue to the right of the new character until negative reached.
+        //for each positive, also check if it is a word, and if so, add it to the list.
     }
-}
-
-
-
-    //once it gets a negative, start checking from the last positive
-    //position to see if a word starts with the characters to the new character
-    //if so, continue to the right of the new character until negative reached.
-    //for each positive, also check if it is a word, and if so, add it to the list.
-}
 
     private void addIfWord(int beginning, int end) {
         if (isWord(str.substring(beginning, end))) {
@@ -73,7 +72,7 @@ if (continueChecking){
         queries++;
         //check if the string is a word
 //todo: implement this method
-        if(str.length() >= 3) {
+        if (str.length() >= 3) {
             return Math.random() < 0.3;
         }
         return false;

@@ -34,7 +34,7 @@ public class Dictionary {
                 wordsFromFile.add(line);
             }
         } catch (IOException e) {
-            System.out.println("Error reading file: " + filename);
+            System.out.println("Error reading " + filename + " > "+ e.getMessage());
         }
         return wordsFromFile;
     }

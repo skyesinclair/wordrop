@@ -14,49 +14,17 @@ public class Result {
     private HashSet<Integer> toRemove;
     //cound of how many times it queried the dictionary
     private int queries = 0;
+    //dictionary of words
+    private Dictionary dictionary;
 
-    public Result(String str, int position) {
+    public Result(String str, int position, Dictionary dictionary) {
         this.str = str;
         this.position = position;
-        this.words = new HashSet<>();
+        this.words = dictionary.getWordsInString(str);
         this.toRemove = new HashSet<>();
-        findWords();
+        this.dictionary = dictionary;
     }
 
-    private void findWords() {
-        //check if there is a word that contains 3 characters touching the new character
-        boolean continueChecking =
-                (position >= 3 && wordContains(str.substring(position - 2, position))) ||
-                        (position >= 2 && str.length() - position >= 2 && wordContains(str.substring(position - 1, position + 1))) ||
-                        (position >= 1 && str.length() - position >= 3 && wordContains(str.substring(position, position + 2)));
-        if (continueChecking) {
-            //if so, continue checking to beginning of the string
-            //loop through the string from the new character to the beginning
-            for (int i = position - 1; i > 0; i--) {
-                //if a word starts with the characters from the current position to the new character
-                if (wordStartsWith(str.substring(i, position))) {
-                    //check if the substring is a word and if so add to list
-                    addIfWord(i, position);
-                    //loop through the string from the new character to the end
-                    for (int j = position; j < str.length(); j++) {
-                        //if a word starts with the characters from the new character to the current position
-                        if (wordStartsWith(str.substring(i, j))) {
-                            //check if the substring is a word and if so add to list
-                            addIfWord(i, j);
-                        }
-                    }
-
-                }
-
-            }
-        }
-
-
-        //once it gets a negative, start checking from the last positive
-        //position to see if a word starts with the characters to the new character
-        //if so, continue to the right of the new character until negative reached.
-        //for each positive, also check if it is a word, and if so, add it to the list.
-    }
 
     private void addIfWord(int beginning, int end) {
         if (isWord(str.substring(beginning, end))) {

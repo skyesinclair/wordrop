@@ -5,16 +5,17 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
-public class Dictionary {
+public class myDictionary {
     private HashSet<String> words;
 
-    public Dictionary() {
+    public myDictionary() {
         words = new HashSet<>();
         words.addAll(getWordsFromFile("src/main/resources/american-english"));
         words.addAll(getWordsFromFile("src/main/resources/british-english"));
         words = normalizeWords(words);
     }
 
+//    todo: make this return a new result object
     public HashSet<String> getWordsInString(String str) {
         HashSet<String> wordsInString = new HashSet<>();
         for (String word : words) {

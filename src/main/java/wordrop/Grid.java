@@ -1,42 +1,136 @@
 package wordrop;
 
-public class Grid {
-    private Cell[][] cells;
+import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.List;
 
-    public Grid(int rows, int cols) {
-        cells = new Cell[rows][cols];
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                cells[i][j] = new Cell(i,j);
+public class Grid {
+    private Tile[][] tiles;
+
+    int width;
+    int height;
+    myDictionary dictionary;
+
+    public Grid(int height, int width, int fillHeight) {
+        this.width=width;
+        this.height=height;
+        this.dictionary = new myDictionary();
+        tiles = new Tile[height][width];
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                tiles[i][j] = new Tile(i,j);
+            }
+        }
+        for (int i = 0; i <fillHeight; i++) {
+            if(i<height) {
+                fillRowRandomly(height-i-1);
+
             }
         }
     }
 
-    public Cell getCell(int row, int col) {
-        return cells[row][col];
+    public Tile getCell(int row, int col) {
+        return tiles[row][col];
     }
 
-    public void setCell(int row, int col, Cell cell) {
-        cells[row][col] = cell;
+    public void setCell(int row, int col, Tile tile) {
+        tiles[row][col] = tile;
     }
 
     public void printAllRows() {
-        for (int i = 0; i < cells.length; i++) {
-            for (int j = 0; j < cells[i].length; j++) {
-                System.out.print(cells[i][j].getCharacter() + " ");
+        for (int i = 0; i < tiles.length; i++) {
+            for (int j = 0; j < tiles[i].length; j++) {
+                System.out.print(tiles[i][j].getCharacter() + " ");
             }
             System.out.println();
         }
     }
 
-public void fillRowRandomly(int row) {
+    public List<String> getResults() {
+        List<String> results = new ArrayList<>();
+        List<List<Tile>> allLines = getAllLines();
+        for (List<Tile> line : allLines) {
+            StringBuilder sb = new StringBuilder();
+            for (Tile tile : line) {
+                sb.append(tile.getCharacter());
+            }
+            String lineString = sb.toString();
+            for (String word : dictionary.getWordsInString(lineString)) {
+                results.add(word);
+            }
+        }
+        return results;
+    }
+
+    public List<List<Tile>> getAllLines() {
+        List<List<Tile>> results = new ArrayList<>();
+        for (int i = 0; i < height; i++) {
+            results.add(getLine(i, 0, Direction.ACROSS));
+            results.add(getLine(i, 0, Direction.DIAGONALDOWN));
+            results.add(getLine(i, width - 1, Direction.DIAGONALUP));
+        }
+        for (int i = 1; i < width; i++) {
+            results.add(getLine(0, i, Direction.DOWN));
+            results.add(getLine(height - 1, i, Direction.UP));
+            results.add(getLine(0, i, Direction.DIAGONALDOWN));
+            results.add(getLine(height - 1, i, Direction.DIAGONALUP));
+        }
+        return results;
+    }
+
+public List<Result> getAllResults() {
+        List<Result> results = new ArrayList<>();
+        List<List<Tile>> allLines = getAllLines();
+        for (List<Tile> line : allLines) {
+            StringBuilder sb = new StringBuilder();
+            for (Tile tile : line) {
+                sb.append(tile.getCharacter());
+            }
+            String lineString = sb.toString();
+            Result result = new Result(lineString, dictionary);
+            if (result.getWords().length > 0) {
+                results.add(result);
+            }
+        }
+        return results;
+}
+
+    public List<Tile> getLine(int row, int col, Direction direction) {
+        List<Tile> result = new ArrayList<>();
+        while (row > 0 && row < height && col < width) {
+
+            result.add(tiles[row][col]);
+            switch (direction) {
+                case ACROSS:
+                    col++;
+                    break;
+                case DOWN:
+                    row++;
+                    break;
+                case UP:
+                    row--;
+                    break;
+                case DIAGONALDOWN:
+                    row++;
+                    col++;
+                    break;
+                case DIAGONALUP:
+                    row--;
+                    col++;
+                    break;
+            }
+        }
+        return result;
+    }
+
+private void fillRowRandomly(int row) {
     String vowels = "aeiou";
     String consonants = "bcdfghjklmnpqrstvwxyz";
-    for (int i = 0; i < cells[row].length; i++) {
+    for (int i = 0; i < tiles[row].length; i++) {
         if (Math.random() < 0.3) { // 30% chance to pick a vowel
-            cells[row][i].setCharacter(vowels.charAt((int) (Math.random() * vowels.length())));
+            tiles[row][i].setCharacter(vowels.charAt((int) (Math.random() * vowels.length())));
         } else { // 70% chance to pick a consonant
-            cells[row][i].setCharacter(consonants.charAt((int) (Math.random() * consonants.length())));
+            tiles[row][i].setCharacter(consonants.charAt((int) (Math.random() * consonants.length())));
         }
     }
 }

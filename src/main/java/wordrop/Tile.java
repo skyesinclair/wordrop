@@ -1,19 +1,19 @@
 package wordrop;
 
-public class Cell {
+public class Tile {
     char character;
     int row;
     int col;
 
+//todo: make Tile objects aware of position in Grid
 
-
-    public Cell(char character, int row, int col) {
+    public Tile(char character, int row, int col) {
         this.character = character;
         this.row = row;
         this.col = col;
     }
 
-    public Cell(int row, int col) {
+    public Tile(int row, int col) {
         this.character = '.';
         this.row = row;
         this.col = col;

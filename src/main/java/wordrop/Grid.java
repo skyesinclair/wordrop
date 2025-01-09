@@ -46,6 +46,8 @@ public class Grid {
         }
     }
 
+//    todo: create method to remove all tiles marked for removal
+
     public List<String> getResults() {
         List<String> results = new ArrayList<>();
         List<List<Tile>> allLines = getAllLines();

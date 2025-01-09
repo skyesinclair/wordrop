@@ -1,6 +1,5 @@
 package wordrop;
 
-import java.util.Arrays;
 import java.util.List;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -9,14 +8,14 @@ public class Main {
     public static void main(String[] args) {
 
 
-        Grid grid = new Grid(15, 15, 8);
+        Grid grid = new Grid(20, 20, 15);
 
         grid.printAllRows();
 
 
-        List results = grid.getResults();
-        for (int i = 0; i < results.size(); i++) {
-            System.out.println(results.get(i));
+        List<String> results = grid.getResults();
+        for (Object result : results) {
+            System.out.println(result);
         }
 
     }

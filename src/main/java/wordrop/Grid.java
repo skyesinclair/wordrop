@@ -41,15 +41,19 @@ public class Grid {
     }
 
     public void printAllRows() {
-        for (int i = 0; i < tiles.length; i++) {
-            for (int j = 0; j < tiles[i].length; j++) {
-                System.out.print(tiles[i][j].getCharacter() + " ");
+        for (int i = 0; i < cells.length; i++) {
+            for (int j = 0; j < cells[i].length; j++) {
+                if (cells[i][j].getTile() == null) {
+                    System.out.print(". ");
+                } else {
+                    System.out.print(cells[i][j].getTile().getCharacter() + " ");
+                }
             }
-            System.out.println();
+                System.out.println();
+            }
         }
-    }
 
-//    todo: create method to remove all tiles marked for removal
+
 
     public List<String> getResults() {
         List<String> results = new ArrayList<>();
@@ -137,5 +141,15 @@ private void fillRowRandomly(int row) {
         }
     }
 }
+
+    public void removeMarkedTiles() {
+        for (int i = 0; i < tiles.length; i++) {
+            for (int j = 0; j < tiles[i].length; j++) {
+                if (tiles[i][j].isMarkedForRemoval()) {
+                    cells[i][j].setTile(null);
+                }
+            }
+        }
+    }
 }
 

@@ -29,8 +29,10 @@ public class Main {
         }
 
         for (Tile tile : toRemove) {
-            tile.setCharacter(Character.toUpperCase(tile.getCharacter()));
+            tile.setMarkedForRemoval(true);
         }
+
+        grid.removeMarkedTiles();
 
         grid.printAllRows();
 

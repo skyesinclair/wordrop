@@ -9,33 +9,37 @@ public class Main {
     public static void main(String[] args) {
 
 
-        Grid grid = new Grid(10, 10, 5);
+        Grid grid = new Grid(12, 10, 5);
 
         grid.printAllRows();
 
 
         List<Result> results = grid.getAllResults();
-        for (Result result : results) {
-            System.out.println(result);
-        }
 
 
-        //
-        HashSet<Tile> toRemove = new HashSet<>();
+while (!results.isEmpty()) {
+    for (Result result : results) {
+        System.out.println(result);
+    }
+    HashSet<Tile> toRemove = new HashSet<>();
 
+    for (Result result : results) {
+        toRemove.addAll(result.getToRemove());
+    }
 
-        for (Result result : results) {
-                toRemove.addAll(result.getToRemove());
-        }
+    for (Tile tile : toRemove) {
+        tile.setMarkedForRemoval(true);
+    }
 
-        for (Tile tile : toRemove) {
-            tile.setMarkedForRemoval(true);
-        }
+    grid.removeMarkedTiles();
 
-        grid.removeMarkedTiles();
+    grid.printAllRows();
 
-        grid.printAllRows();
-
+    grid.dropTiles();
+    System.out.println("++++++++++++++++++++++++++++");
+    grid.printAllRows();
+    results = grid.getAllResults();
+}
 
     }
 

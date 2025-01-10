@@ -21,7 +21,7 @@ public class Grid {
             for (int j = 0; j < width; j++) {
                 Tile tile = new Tile(i, j);
                 tiles[i][j] = tile;
-                cells[i][j] = new Cell(false, tile);
+                cells[i][j] = new Cell(i, j, false, tile);
             }
         }
         for (int i = 0; i <fillHeight; i++) {
@@ -105,8 +105,10 @@ public List<Result> getAllResults() {
     public List<Tile> getLine(int row, int col, Direction direction) {
         List<Tile> result = new ArrayList<>();
         while (row > 0 && row < height && col < width) {
-
-            result.add(tiles[row][col]);
+            if (cells[row][col].getTile() == null) {
+                result.add(new Tile('.',row, col));
+            }
+            result.add(cells[row][col].getTile());
             switch (direction) {
                 case ACROSS:
                     col++;
@@ -147,6 +149,28 @@ private void fillRowRandomly(int row) {
             for (int j = 0; j < tiles[i].length; j++) {
                 if (tiles[i][j].isMarkedForRemoval()) {
                     cells[i][j].setTile(null);
+                    tiles[i][j] = null;
+                }
+            }
+        }
+    }
+
+    public void dropTiles() {
+        for (int i = cells.length - 1; i >= 0; i--) {
+            for (Cell cell : cells[i]) {
+                if(cell.getTile()==null&&i>0) {
+                        Cell cellAbove = cells[cell.getRow() - 1][cell.getCol()];
+
+                            while (cellAbove.getTile() == null && cellAbove.getRow() > 0) {
+                                cellAbove = cells[cellAbove.getRow() - 1][cellAbove.getCol()];
+                            }
+                            if(cellAbove.getTile()!=null) {
+                                cell.setTile(cellAbove.getTile());
+                                cell.getTile().setRow(i);
+                                cellAbove.setTile(null);
+                        }
+
+
                 }
             }
         }

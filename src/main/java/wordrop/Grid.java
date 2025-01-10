@@ -2,6 +2,7 @@ package wordrop;
 
 import java.util.ArrayList;
 import java.util.Dictionary;
+import java.util.HashSet;
 import java.util.List;
 
 public class Grid {
@@ -89,8 +90,8 @@ public List<Result> getAllResults() {
                 sb.append(tile.getCharacter());
             }
             String lineString = sb.toString();
-            Result result = new Result(lineString, dictionary);
-            if (result.getWords().length > 0) {
+            Result result = dictionary.getResult(lineString, line.toArray(new Tile[0]));
+            if(result.getWords().length>0) {
                 results.add(result);
             }
         }

@@ -1,5 +1,6 @@
 package wordrop;
 
+import java.util.Arrays;
 import java.util.HashSet;
 
 public class Result {
@@ -7,28 +8,47 @@ public class Result {
     // the string to search for words
     private String str;
     // list of words found in the string
-    private HashSet<String> words;
+    private String[] words;
     // list of positions of characters to remove
-    private HashSet<Integer> toRemove;
-    //dictionary of words
-    private myDictionary dictionary;
+    private HashSet<Tile> toRemove;
 
-    public Result(String str, myDictionary dictionary) {
+    public Result(String str, String[] words, HashSet<Tile> toRemove) {
         this.str = str;
-        this.words = dictionary.getWordsInString(str);
-        this.toRemove = new HashSet<>();
-        this.dictionary = dictionary;
+        this.words = words;
+        this.toRemove = toRemove;
     }
 
 
+    public String getStr() {
+        return str;
+    }
 
+    public void setStr(String str) {
+        this.str = str;
+    }
 
     public String[] getWords() {
-        return words.toArray(new String[0]);
+        return words;
     }
 
-    public Object[] getToRemove() {
-        return toRemove.toArray();
+    public void setWords(String[] words) {
+        this.words = words;
     }
 
+    public HashSet<Tile> getToRemove() {
+        return toRemove;
+    }
+
+    public void setToRemove(HashSet<Tile> toRemove) {
+        this.toRemove = toRemove;
+    }
+
+    @Override
+    public String toString() {
+        return "Result{" +
+                "str='" + str + '\'' +
+                ", words=" + Arrays.toString(words) +
+                ", toRemove=" + toRemove +
+                '}';
+    }
 }

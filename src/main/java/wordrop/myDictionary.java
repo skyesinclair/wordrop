@@ -26,6 +26,20 @@ public class myDictionary {
         return wordsInString;
     }
 
+    public Result getResult(String str, Tile[] tiles) {
+        HashSet<String> wordsInString = getWordsInString(str);
+        HashSet<Tile> toRemove = new HashSet<>();
+        for (String word : wordsInString) {
+            int index = str.indexOf(word);
+            while (index >= 0) {
+                for (int i = index; i < index + word.length(); i++) {
+                    toRemove.add(tiles[i]);
+                }
+                index = str.indexOf(word, index + 1);
+            }
+        }
+        return new Result(str, wordsInString.toArray(new String[0]), toRemove);
+    }
 
     private HashSet<String> getWordsFromFile(String filename) {
         HashSet<String> wordsFromFile = new HashSet<>();

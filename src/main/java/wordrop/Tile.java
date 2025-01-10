@@ -42,4 +42,13 @@ public class Tile {
     public void setCol(int col) {
         this.col = col;
     }
+
+    @Override
+    public String toString() {
+        return "Tile{" +
+                "character=" + character +
+                ", row=" + row +
+                ", col=" + col +
+                '}';
+    }
 }

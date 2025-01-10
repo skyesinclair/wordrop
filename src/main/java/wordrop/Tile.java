@@ -4,6 +4,7 @@ public class Tile {
     char character;
     int row;
     int col;
+    boolean markedForRemoval = false;
 
 //todo: make Tile objects aware of position in Grid
 
@@ -17,6 +18,14 @@ public class Tile {
         this.character = '.';
         this.row = row;
         this.col = col;
+    }
+
+    public boolean isMarkedForRemoval() {
+        return markedForRemoval;
+    }
+
+    public void setMarkedForRemoval(boolean markedForRemoval) {
+        this.markedForRemoval = markedForRemoval;
     }
 
     public char getCharacter() {

@@ -1,25 +1,27 @@
 package wordrop;
 
 import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.HashSet;
 import java.util.List;
 
 public class Grid {
     private Tile[][] tiles;
+    private Cell[][] cells;
 
     int width;
     int height;
-    myDictionary dictionary;
+    Dictionary dictionary;
 
     public Grid(int height, int width, int fillHeight) {
         this.width=width;
         this.height=height;
-        this.dictionary = new myDictionary();
+        this.dictionary = new Dictionary();
+        cells = new Cell[height][width];
         tiles = new Tile[height][width];
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                tiles[i][j] = new Tile(i,j);
+                Tile tile = new Tile(i, j);
+                tiles[i][j] = tile;
+                cells[i][j] = new Cell(false, tile);
             }
         }
         for (int i = 0; i <fillHeight; i++) {
@@ -58,9 +60,7 @@ public class Grid {
                 sb.append(tile.getCharacter());
             }
             String lineString = sb.toString();
-            for (String word : dictionary.getWordsInString(lineString)) {
-                results.add(word);
-            }
+            results.addAll(dictionary.getWordsInString(lineString));
         }
         return results;
     }

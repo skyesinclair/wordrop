@@ -5,10 +5,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
-public class myDictionary {
+public class Dictionary implements DictionaryInterface{
     private HashSet<String> words;
 
-    public myDictionary() {
+    public Dictionary() {
         words = new HashSet<>();
         words.addAll(getWordsFromFile("src/main/resources/american-english"));
         words.addAll(getWordsFromFile("src/main/resources/british-english"));
@@ -68,16 +68,4 @@ public class myDictionary {
         return normalizedWords;
     }
 
-    public void printRandomWords(int number) {
-        int count = 0;
-        List<String> wordList = new ArrayList<>(words);
-        Collections.shuffle(wordList);
-        for (String word : words) {
-            if (count >= number) {
-                break;
-            }
-            System.out.println(word);
-            count++;
-        }
-    }
 }

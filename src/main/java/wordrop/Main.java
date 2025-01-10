@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
 
 
-        Grid grid = new Grid(20, 20, 15);
+        Grid grid = new Grid(10, 10, 5);
 
         grid.printAllRows();
 
@@ -19,12 +19,13 @@ public class Main {
             System.out.println(result);
         }
 
+
+        //
         HashSet<Tile> toRemove = new HashSet<>();
 
-        int index = 0;
+
         for (Result result : results) {
                 toRemove.addAll(result.getToRemove());
-                index++;
         }
 
         for (Tile tile : toRemove) {

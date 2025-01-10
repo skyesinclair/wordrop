@@ -106,9 +106,11 @@ public List<Result> getAllResults() {
         List<Tile> result = new ArrayList<>();
         while (row > 0 && row < height && col < width) {
             if (cells[row][col].getTile() == null) {
-                result.add(new Tile('.',row, col));
+                result.add(new Tile('!',row, col));
             }
-            result.add(cells[row][col].getTile());
+            else {
+                result.add(cells[row][col].getTile());
+            }
             switch (direction) {
                 case ACROSS:
                     col++;
@@ -144,10 +146,21 @@ private void fillRowRandomly(int row) {
     }
 }
 
+public void removeTiles(Tile[] tilesToRemove) {
+    for (Tile tile : tilesToRemove) {
+        int col = tile.getCol();
+        int row = tile.getRow();
+        cells[row][col].setTile(null);
+        tiles[row][col] = null;
+    }
+}
+
+
+
     public void removeMarkedTiles() {
         for (int i = 0; i < tiles.length; i++) {
             for (int j = 0; j < tiles[i].length; j++) {
-                if (tiles[i][j].isMarkedForRemoval()) {
+                if (tiles[i][j]!=null&&tiles[i][j].isMarkedForRemoval()) {
                     cells[i][j].setTile(null);
                     tiles[i][j] = null;
                 }

@@ -1,5 +1,6 @@
 package wordrop;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -9,7 +10,7 @@ public class Main {
     public static void main(String[] args) {
 
 
-        Grid grid = new Grid(12, 10, 5);
+        Grid grid = new Grid(16, 12, 10);
 
         grid.printAllRows();
 
@@ -18,20 +19,19 @@ public class Main {
 
 
 while (!results.isEmpty()) {
+    List<String> words= new ArrayList<>();
     for (Result result : results) {
-        System.out.println(result);
+        words.addAll(List.of(result.getWords()));
     }
+    System.out.println(words);
     HashSet<Tile> toRemove = new HashSet<>();
 
     for (Result result : results) {
         toRemove.addAll(result.getToRemove());
     }
 
-    for (Tile tile : toRemove) {
-        tile.setMarkedForRemoval(true);
-    }
 
-    grid.removeMarkedTiles();
+    grid.removeTiles(toRemove.toArray(new Tile[0]));
 
     grid.printAllRows();
 

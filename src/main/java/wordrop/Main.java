@@ -13,35 +13,36 @@ public class Main {
         Grid grid = new Grid(16, 12, 10);
 
         grid.printAllRows();
+        processGrid(grid);
 
 
+    }
+
+    private static void processGrid(Grid grid) {
         List<Result> results = grid.getAllResults();
 
 
-while (!results.isEmpty()) {
-    List<String> words= new ArrayList<>();
-    for (Result result : results) {
-        words.addAll(List.of(result.getWords()));
+        while (!results.isEmpty()) {
+            List<String> words = new ArrayList<>();
+            for (Result result : results) {
+                words.addAll(List.of(result.getWords()));
+            }
+            System.out.println(words);
+            HashSet<Tile> toRemove = new HashSet<>();
+
+            for (Result result : results) {
+                toRemove.addAll(result.getToRemove());
+            }
+
+
+            grid.removeTiles(toRemove.toArray(new Tile[0]));
+
+
+
+            grid.dropTiles();
+grid.printAllRows();
+            results = grid.getAllResults();
+        }
+
     }
-    System.out.println(words);
-    HashSet<Tile> toRemove = new HashSet<>();
-
-    for (Result result : results) {
-        toRemove.addAll(result.getToRemove());
-    }
-
-
-    grid.removeTiles(toRemove.toArray(new Tile[0]));
-
-    grid.printAllRows();
-
-    grid.dropTiles();
-    System.out.println("++++++++++++++++++++++++++++");
-    grid.printAllRows();
-    results = grid.getAllResults();
-}
-
-    }
-
-
 }

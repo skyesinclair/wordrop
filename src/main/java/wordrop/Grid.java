@@ -19,9 +19,9 @@ public class Grid {
         tiles = new Tile[height][width];
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                Tile tile = new Tile(i, j);
-                tiles[i][j] = tile;
-                cells[i][j] = new Cell(i, j, false, tile);
+//                Tile tile = new Tile(i, j);
+//                tiles[i][j] = tile;
+                cells[i][j] = new Cell(i, j, false, null);
             }
         }
         for (int i = 0; i <fillHeight; i++) {
@@ -137,12 +137,16 @@ public List<Result> getAllResults() {
 private void fillRowRandomly(int row) {
     String vowels = "aeiou";
     String consonants = "bcdfghjklmnpqrstvwxyz";
-    for (int i = 0; i < tiles[row].length; i++) {
+    for (int i = 0; i < cells[row].length; i++) {
+        Tile tile;
         if (Math.random() < 0.3) { // 30% chance to pick a vowel
-            tiles[row][i].setCharacter(vowels.charAt((int) (Math.random() * vowels.length())));
+            tile = new Tile(vowels.charAt((int) (Math.random() * vowels.length())), row, i);
         } else { // 70% chance to pick a consonant
-            tiles[row][i].setCharacter(consonants.charAt((int) (Math.random() * consonants.length())));
+            tile = new Tile(consonants.charAt((int) (Math.random() * vowels.length())), row, i);
         }
+
+        tiles[row][i] = tile;
+        cells[row][i].setTile(tile);
     }
 }
 
@@ -180,6 +184,7 @@ public void removeTiles(Tile[] tilesToRemove) {
                             if(cellAbove.getTile()!=null) {
                                 cell.setTile(cellAbove.getTile());
                                 cell.getTile().setRow(i);
+
                                 cellAbove.setTile(null);
                         }
 
@@ -189,7 +194,7 @@ public void removeTiles(Tile[] tilesToRemove) {
         }
     }
 
-    public void dropTile(Tile newTile, int column) {
+    public void addNewTile(Tile newTile, int column) {
         for (int i = cells.length-1; i > 0; i--) {
             if (cells[i][column].getTile() == null) {
                 cells[i][column].setTile(newTile);

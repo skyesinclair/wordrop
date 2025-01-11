@@ -14,11 +14,7 @@ public class Tile {
         this.col = col;
     }
 
-    public Tile(int row, int col) {
-        this.character = '.';
-        this.row = row;
-        this.col = col;
-    }
+
 
     public boolean isMarkedForRemoval() {
         return markedForRemoval;

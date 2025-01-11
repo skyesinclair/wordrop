@@ -17,10 +17,11 @@ public class Main {
 
         grid.printAllRows();
         processGrid(grid);
-        Tile newTile = new Tile('f',0, 0);
-        int columnDrop = getUserInput(grid, newTile);
-        grid.dropTile(newTile, columnDrop);
+        Tile newTile = new Tile('s',0, 0);
+        int columnDrop = getUserInput(grid, newTile)-1;
+        grid.addNewTile(newTile, columnDrop);
         grid.printAllRows();
+        processGrid(grid);
 
 
 

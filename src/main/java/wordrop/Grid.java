@@ -188,5 +188,15 @@ public void removeTiles(Tile[] tilesToRemove) {
             }
         }
     }
+
+    public void dropTile(Tile newTile, int column) {
+        for (int i = cells.length-1; i > 0; i--) {
+            if (cells[i][column].getTile() == null) {
+                cells[i][column].setTile(newTile);
+                newTile.setRow(i);
+                break;
+            }
+        }
+    }
 }
 

@@ -3,10 +3,13 @@ package wordrop;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Scanner;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
+    int width;
+    int height;
     public static void main(String[] args) {
 
 
@@ -14,6 +17,11 @@ public class Main {
 
         grid.printAllRows();
         processGrid(grid);
+        Tile newTile = new Tile('f',0, 0);
+        int columnDrop = getUserInput(grid, newTile);
+        grid.dropTile(newTile, columnDrop);
+        grid.printAllRows();
+
 
 
     }
@@ -44,5 +52,21 @@ grid.printAllRows();
             results = grid.getAllResults();
         }
 
+    }
+
+    private static int getUserInput(Grid grid, Tile newTile) {
+        int input = 0;
+        Tile tile = newTile;
+        for (int i = 0; i < grid.width; i++) {
+            System.out.print(i + 1 + " ");
+        }
+        System.out.println("New tile: " + tile.getCharacter());
+        while (input < 1 || input > grid.width) {
+            System.out.println("Which column?");
+            Scanner scanner = new Scanner(System.in);
+            input = scanner.nextInt();
+        }
+
+        return input;
     }
 }

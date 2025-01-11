@@ -17,11 +17,13 @@ public class Main {
 
         grid.printAllRows();
         processGrid(grid);
-        Tile newTile = new Tile('s',0, 0);
-        int columnDrop = getUserInput(grid, newTile)-1;
-        grid.addNewTile(newTile, columnDrop);
-        grid.printAllRows();
-        processGrid(grid);
+        while (true) {
+            Tile newTile = new Tile(getRandomLetter(), 0, 0);
+            int columnDrop = getUserInput(grid, newTile) - 1;
+            grid.addNewTile(newTile, columnDrop);
+            grid.printAllRows();
+            processGrid(grid);
+        }
 
 
 
@@ -69,5 +71,9 @@ grid.printAllRows();
         }
 
         return input;
+    }
+
+    private static Character getRandomLetter() {
+        return (char) (Math.random() * 26 + 'a');
     }
 }

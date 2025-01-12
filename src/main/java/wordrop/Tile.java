@@ -6,7 +6,7 @@ public class Tile {
     int col;
     boolean markedForRemoval = false;
 
-//todo: make Tile objects aware of position in Grid
+
 
     public Tile(char character, int row, int col) {
         this.character = character;

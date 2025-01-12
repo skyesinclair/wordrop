@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 public class Result {
-//todo: make this return the positions of the letters to remove
     // the string to search for words
     private String str;
     // list of words found in the string

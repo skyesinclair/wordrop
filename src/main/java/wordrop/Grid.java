@@ -2,6 +2,9 @@ package wordrop;
 
 import java.util.ArrayList;
 import java.util.List;
+//todo: change tile array to single arrayList instead of 2d array.  Remove reference to tiles in Cells
+
+//todo: maybe make cells a single array instead of 2d array with a row and column property?
 
 public class Grid {
     private Tile[][] tiles;

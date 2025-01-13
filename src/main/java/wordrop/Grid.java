@@ -6,8 +6,10 @@ import java.util.List;
 
 //todo: maybe make cells a single array instead of 2d array with a row and column property?
 
+//todo: remove the cells knowledge of tiles and just use the getTile method in grid
+
 public class Grid {
-    private Tile[][] tiles;
+    private List<Tile> tiles;
     private Cell[][] cells;
 
     int width;
@@ -19,7 +21,7 @@ public class Grid {
         this.height=height;
         this.dictionary = new Dictionary();
         cells = new Cell[height][width];
-        tiles = new Tile[height][width];
+        tiles = new ArrayList<Tile>();
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
 //                Tile tile = new Tile(i, j);
@@ -35,21 +37,14 @@ public class Grid {
         }
     }
 
-    public Tile getCell(int row, int col) {
-        return tiles[row][col];
-    }
-
-    public void setCell(int row, int col, Tile tile) {
-        tiles[row][col] = tile;
-    }
 
     public void printAllRows() {
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells[i].length; j++) {
-                if (cells[i][j].getTile() == null) {
+                if (getTile(i,j) == null) {
                     System.out.print(". ");
                 } else {
-                    System.out.print(cells[i][j].getTile().getCharacter() + " ");
+                    System.out.print(getTile(i,j).getCharacter() + " ");
                 }
             }
                 System.out.println();
@@ -148,7 +143,8 @@ private void fillRowRandomly(int row) {
             tile = new Tile(consonants.charAt((int) (Math.random() * vowels.length())), row, i);
         }
 
-        tiles[row][i] = tile;
+        tile.setCell(row, i);
+        tiles.add(tile);
         cells[row][i].setTile(tile);
     }
 }
@@ -158,20 +154,20 @@ public void removeTiles(Tile[] tilesToRemove) {
         int col = tile.getCol();
         int row = tile.getRow();
         cells[row][col].setTile(null);
-        tiles[row][col] = null;
+        tiles.remove(tile);
     }
 }
 
 
 
     public void removeMarkedTiles() {
-        for (int i = 0; i < tiles.length; i++) {
-            for (int j = 0; j < tiles[i].length; j++) {
-                if (tiles[i][j]!=null&&tiles[i][j].isMarkedForRemoval()) {
-                    cells[i][j].setTile(null);
-                    tiles[i][j] = null;
+        for (int i = 0; i < tiles.size(); i++) {
+                if (tiles.get(i).isMarkedForRemoval()) {
+                    Tile tile = tiles.get(i);
+                    cells[tile.getRow()][tile.getCol()].setTile(null);
+                    tiles.remove(tile);
                 }
-            }
+
         }
     }
 
@@ -206,5 +202,16 @@ public void removeTiles(Tile[] tilesToRemove) {
             }
         }
     }
+
+    public Tile getTile(int row, int col) {
+        Tile tile = null;
+        for (int i = 0; i < tiles.size(); i++) {
+            if(tiles.get(i).getRow()==row&&tiles.get(i).getCol()==col) {
+                tile = tiles.get(i);
+            }
+        }
+        return tile;
+    }
+
 }
 

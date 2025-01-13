@@ -48,6 +48,11 @@ public class Tile {
         this.col = col;
     }
 
+    public void setCell(int row, int col) {
+        this.row = row;
+        this.col = col;
+    }
+
     @Override
     public String toString() {
         return "Tile{" +

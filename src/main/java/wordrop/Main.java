@@ -13,7 +13,7 @@ public class Main {
     public static void main(String[] args) {
 
 
-        Grid grid = new Grid(16, 12, 10);
+        Grid grid = new Grid(10, 8, 10);
 
         grid.printAllRows();
         processGrid(grid);

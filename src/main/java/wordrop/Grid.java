@@ -2,7 +2,6 @@ package wordrop;
 
 import java.util.ArrayList;
 import java.util.List;
-//todo: change tile array to single arrayList instead of 2d array.  Remove reference to tiles in Cells
 
 //todo: maybe make cells a single array instead of 2d array with a row and column property?
 
@@ -24,8 +23,6 @@ public class Grid {
         tiles = new ArrayList<Tile>();
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-//                Tile tile = new Tile(i, j);
-//                tiles[i][j] = tile;
                 cells[i][j] = new Cell(i, j, false, null);
             }
         }
@@ -101,13 +98,13 @@ public List<Result> getAllResults() {
 }
 
     public List<Tile> getLine(int row, int col, Direction direction) {
-        List<Tile> result = new ArrayList<>();
+        List<Tile> line = new ArrayList<>();
         while (row > 0 && row < height && col < width) {
-            if (cells[row][col].getTile() == null) {
-                result.add(new Tile('!',row, col));
+            if (getTile(row,col) == null) {
+                line.add(new Tile('!',row, col));
             }
             else {
-                result.add(cells[row][col].getTile());
+                line.add(getTile(row,col));
             }
             switch (direction) {
                 case ACROSS:
@@ -129,7 +126,7 @@ public List<Result> getAllResults() {
                     break;
             }
         }
-        return result;
+        return line;
     }
 
 private void fillRowRandomly(int row) {
@@ -195,9 +192,9 @@ public void removeTiles(Tile[] tilesToRemove) {
 
     public void addNewTile(Tile newTile, int column) {
         for (int i = cells.length-1; i > 0; i--) {
-            if (cells[i][column].getTile() == null) {
-                cells[i][column].setTile(newTile);
-                newTile.setRow(i);
+            if (getTile(i,column) == null) {
+                newTile.setCell(i, column);
+                tiles.add(newTile);
                 break;
             }
         }

@@ -63,6 +63,7 @@ grid.printAllRows();
         for (int i = 0; i < grid.width; i++) {
             System.out.print(i + 1 + " ");
         }
+        System.out.println();
         System.out.println("New tile: " + tile.getCharacter());
         while (input < 1 || input > grid.width) {
             System.out.println("Which column?");

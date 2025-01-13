@@ -5,6 +5,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
+
+
 public class Dictionary implements DictionaryInterface{
     private HashSet<String> words;
 
@@ -58,6 +60,7 @@ public class Dictionary implements DictionaryInterface{
         return words;
     }
 
+
     private HashSet<String> normalizeWords(HashSet<String> words) {
         HashSet<String> normalizedWords = new HashSet<>();
         for (String word : words) {
@@ -66,6 +69,14 @@ public class Dictionary implements DictionaryInterface{
             }
         }
         return normalizedWords;
+    }
+
+    //return a random character from a random word
+    public Character getRandomCharacter() {
+        Random random = new Random();
+        String[] wordsArray = words.toArray(new String[0]);
+        String randomWord = wordsArray[random.nextInt(wordsArray.length)];
+            return randomWord.charAt(random.nextInt(randomWord.length()));
     }
 
 }

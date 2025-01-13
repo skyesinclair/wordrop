@@ -130,19 +130,10 @@ public List<Result> getAllResults() {
     }
 
 private void fillRowRandomly(int row) {
-    String vowels = "aeiou";
-    String consonants = "bcdfghjklmnpqrstvwxyz";
-    for (int i = 0; i < cells[row].length; i++) {
-        Tile tile;
-        if (Math.random() < 0.3) { // 30% chance to pick a vowel
-            tile = new Tile(vowels.charAt((int) (Math.random() * vowels.length())), row, i);
-        } else { // 70% chance to pick a consonant
-            tile = new Tile(consonants.charAt((int) (Math.random() * vowels.length())), row, i);
-        }
 
-        tile.setCell(row, i);
+    for (int i = 0; i < cells[row].length; i++) {
+        Tile tile = new Tile(dictionary.getRandomCharacter(), row, i);
         tiles.add(tile);
-        cells[row][i].setTile(tile);
     }
 }
 
@@ -150,7 +141,6 @@ public void removeTiles(Tile[] tilesToRemove) {
     for (Tile tile : tilesToRemove) {
         int col = tile.getCol();
         int row = tile.getRow();
-        cells[row][col].setTile(null);
         tiles.remove(tile);
     }
 }
@@ -161,7 +151,6 @@ public void removeTiles(Tile[] tilesToRemove) {
         for (int i = 0; i < tiles.size(); i++) {
                 if (tiles.get(i).isMarkedForRemoval()) {
                     Tile tile = tiles.get(i);
-                    cells[tile.getRow()][tile.getCol()].setTile(null);
                     tiles.remove(tile);
                 }
 
@@ -171,17 +160,15 @@ public void removeTiles(Tile[] tilesToRemove) {
     public void dropTiles() {
         for (int i = cells.length - 1; i >= 0; i--) {
             for (Cell cell : cells[i]) {
-                if(cell.getTile()==null&&i>0) {
+                if(getTile(cell.Row,cell.col)==null&&i>0) {
                         Cell cellAbove = cells[cell.getRow() - 1][cell.getCol()];
 
-                            while (cellAbove.getTile() == null && cellAbove.getRow() > 0) {
+                            while (getTile(cellAbove.getRow(),cellAbove.getCol()) == null && cellAbove.getRow() > 0) {
                                 cellAbove = cells[cellAbove.getRow() - 1][cellAbove.getCol()];
                             }
-                            if(cellAbove.getTile()!=null) {
-                                cell.setTile(cellAbove.getTile());
-                                cell.getTile().setRow(i);
+                            if(getTile(cellAbove.getRow(),cellAbove.getCol())!=null) {
+                                getTile(cellAbove.getRow(),cellAbove.getCol()).setCell(cell.getRow(),cell.getCol());
 
-                                cellAbove.setTile(null);
                         }
 
 

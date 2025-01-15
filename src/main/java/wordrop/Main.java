@@ -14,7 +14,24 @@ public class Main {
     public static void main(String[] args) {
         boolean gameOver = false;
 
+        //test if words are in dictionary
+        ArrayList emptyTiles = new ArrayList<>();
+        for (int i = 0; i < 20; i++) {
+            emptyTiles.add(new Tile(' ', 0, 0));
+        }
+List<String> testWords = new ArrayList<>();
+        testWords.add("fig");
+        testWords.add("sod");
+
+        for (String testWord : testWords) {
+            System.out.println(testWord + " is in dictionary: " + new Dictionary().getWords().contains(testWord));
+            System.out.println("Result: " + new Dictionary().getResult(testWord, (Tile[]) emptyTiles.toArray(new Tile[0])));
+        }
+
+        //begin game
+
         Grid grid = new Grid(10, 8, 10);
+
         grid.printAllRows();
         processGrid(grid);
         while (!gameOver) {

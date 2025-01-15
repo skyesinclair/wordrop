@@ -10,19 +10,20 @@ import java.util.Scanner;
 public class Main {
     int width;
     int height;
-    public static void main(String[] args) {
 
+    public static void main(String[] args) {
+        boolean gameOver = false;
 
         Grid grid = new Grid(10, 8, 10);
-
         grid.printAllRows();
         processGrid(grid);
-        while (true) {
+        while (!gameOver) {
             Tile newTile = new Tile(getRandomLetter(), 0, 0);
             int columnDrop = getUserInput(grid, newTile) - 1;
             grid.addNewTile(newTile, columnDrop);
             grid.printAllRows();
             processGrid(grid);
+            gameOver = grid.isGameOver();
         }
 
 

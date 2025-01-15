@@ -5,7 +5,7 @@ import java.util.List;
 
 //todo: maybe make cells a single array instead of 2d array with a row and column property?
 
-//todo: remove the cells knowledge of tiles and just use the getTile method in grid
+
 
 public class Grid {
     private List<Tile> tiles;
@@ -197,5 +197,13 @@ public void removeTiles(Tile[] tilesToRemove) {
         return tile;
     }
 
+    public boolean isGameOver() {
+        for (int i = 0; i < width; i++) {
+            if (getTile(0,i) != null) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
 

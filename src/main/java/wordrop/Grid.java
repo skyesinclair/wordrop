@@ -44,6 +44,7 @@ public class Grid {
                     System.out.print(getTile(i,j).getCharacter() + " ");
                 }
             }
+            System.out.print(i);
                 System.out.println();
             }
         }
@@ -178,13 +179,21 @@ public void removeTiles(Tile[] tilesToRemove) {
     }
 
     public void addNewTile(Tile newTile, int column) {
-        for (int i = cells.length-1; i > 0; i--) {
-            if (getTile(i,column) == null) {
-                newTile.setCell(i, column);
+        int row = height - 1;
+//        System.out.println("starting at cell: " + row + ", " + column);
+        System.out.println(getTile(row,column));
+        while (row >= 0) {
+//            System.out.println("checking row " + row);
+            System.out.println(getTile(row,column));
+            if (getTile(row,column) == null) {
+//                System.out.println("adding tile to row " + row);
+                newTile.setCell(row, column);
                 tiles.add(newTile);
                 break;
             }
+            row--;
         }
+
     }
 
     public Tile getTile(int row, int col) {

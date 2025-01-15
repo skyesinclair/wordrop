@@ -42,6 +42,7 @@ List<String> testWords = new ArrayList<>();
             processGrid(grid);
             gameOver = grid.isGameOver();
         }
+        System.out.println("Game over");
 
 
 

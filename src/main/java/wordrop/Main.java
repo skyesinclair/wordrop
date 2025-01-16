@@ -22,6 +22,7 @@ public class Main {
 List<String> testWords = new ArrayList<>();
         testWords.add("fig");
         testWords.add("sod");
+        testWords.add("rum"); //top of column, pointing down
 
         for (String testWord : testWords) {
             System.out.println(testWord + " is in dictionary: " + new Dictionary().getWords().contains(testWord));
@@ -30,7 +31,7 @@ List<String> testWords = new ArrayList<>();
 
         //begin game
 
-        Grid grid = new Grid(10, 8, 10);
+        Grid grid = new Grid(10, 9, 10);
 
         grid.printAllRows();
         processGrid(grid);
@@ -72,6 +73,7 @@ List<String> testWords = new ArrayList<>();
 
 
             grid.dropTiles();
+            grid.shiftTiles(grid.width/2);
 grid.printAllRows();
             results = grid.getAllResults();
         }

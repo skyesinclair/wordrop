@@ -34,6 +34,16 @@ public class Grid {
         }
     }
 
+public void shiftTiles(int shiftAmount) {
+    for (int i = 0; i < tiles.size(); i++) {
+        Tile tile = tiles.get(i);
+        tile.setCol(tile.getCol() + shiftAmount);
+        if(tile.getCol()>width-1) {
+            tile.setCol(tile.getCol()-width);
+        }
+    }
+
+}
 
     public void printAllRows() {
         for (int i = 0; i < cells.length; i++) {

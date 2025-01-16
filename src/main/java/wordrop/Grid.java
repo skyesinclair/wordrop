@@ -109,6 +109,7 @@ public List<Result> getAllResults() {
 }
 
     public List<Tile> getLine(int row, int col, Direction direction) {
+//        todo: debug why down words aren't being found
         List<Tile> line = new ArrayList<>();
         while (row > 0 && row < height && col < width) {
             if (getTile(row,col) == null) {
@@ -191,10 +192,10 @@ public void removeTiles(Tile[] tilesToRemove) {
     public void addNewTile(Tile newTile, int column) {
         int row = height - 1;
 //        System.out.println("starting at cell: " + row + ", " + column);
-        System.out.println(getTile(row,column));
+//        System.out.println(getTile(row,column));
         while (row >= 0) {
 //            System.out.println("checking row " + row);
-            System.out.println(getTile(row,column));
+//            System.out.println(getTile(row,column));
             if (getTile(row,column) == null) {
 //                System.out.println("adding tile to row " + row);
                 newTile.setCell(row, column);

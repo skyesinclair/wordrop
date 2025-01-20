@@ -51,7 +51,7 @@ List<String> testWords = new ArrayList<>();
 
     private static void processGrid(Grid grid) {
 
-        //todo: have the grid shift 50% to the right between processing so the peaks are centered
+
         List<Result> results = grid.getAllResults();
 
 

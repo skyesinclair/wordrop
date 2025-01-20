@@ -21,6 +21,7 @@ public class Grid {
         this.dictionary = new Dictionary();
         cells = new Cell[height][width];
         tiles = new ArrayList<Tile>();
+//        todo: change this so it fills letter by letter and checks each time for words, if it makes a word, choose a different letter in a loop until it is safe
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 cells[i][j] = new Cell(i, j, false, null);
@@ -54,9 +55,11 @@ public void shiftTiles(int shiftAmount) {
                     System.out.print(getTile(i,j).getCharacter() + " ");
                 }
             }
-            System.out.print(i);
+            System.out.print("|"+i);
                 System.out.println();
             }
+
+
         }
 
 
@@ -92,6 +95,7 @@ public void shiftTiles(int shiftAmount) {
     }
 
 public List<Result> getAllResults() {
+        //todo: only check for results if line has characters
         List<Result> results = new ArrayList<>();
         List<List<Tile>> allLines = getAllLines();
         for (List<Tile> line : allLines) {
@@ -159,15 +163,7 @@ public void removeTiles(Tile[] tilesToRemove) {
 
 
 
-    public void removeMarkedTiles() {
-        for (int i = 0; i < tiles.size(); i++) {
-                if (tiles.get(i).isMarkedForRemoval()) {
-                    Tile tile = tiles.get(i);
-                    tiles.remove(tile);
-                }
 
-        }
-    }
 
     public void dropTiles() {
         for (int i = cells.length - 1; i >= 0; i--) {

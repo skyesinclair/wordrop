@@ -83,7 +83,7 @@ public void shiftTiles(int shiftAmount) {
         for (int i = 0; i < height; i++) {
             results.add(getLine(i, 0, Direction.ACROSS));
             results.add(getLine(i, 0, Direction.DIAGONALDOWN));
-            results.add(getLine(i, width - 1, Direction.DIAGONALUP));
+            results.add(getLine(i, 0, Direction.DIAGONALUP));
         }
         for (int i = 1; i < width; i++) {
             results.add(getLine(0, i, Direction.DOWN));
@@ -115,7 +115,7 @@ public List<Result> getAllResults() {
     public List<Tile> getLine(int row, int col, Direction direction) {
 //        todo: debug why down words aren't being found
         List<Tile> line = new ArrayList<>();
-        while (row > 0 && row < height && col < width) {
+        while (row >= 0 && row < height && col < width) {
             if (getTile(row,col) == null) {
                 line.add(new Tile('!',row, col));
             }
@@ -155,8 +155,7 @@ private void fillRowRandomly(int row) {
 
 public void removeTiles(Tile[] tilesToRemove) {
     for (Tile tile : tilesToRemove) {
-        int col = tile.getCol();
-        int row = tile.getRow();
+
         tiles.remove(tile);
     }
 }

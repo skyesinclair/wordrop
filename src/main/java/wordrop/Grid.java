@@ -21,7 +21,7 @@ public class Grid {
         this.dictionary = new Dictionary();
         cells = new Cell[height][width];
         tiles = new ArrayList<Tile>();
-//        todo: change this so it fills letter by letter and checks each time for words, if it makes a word, choose a different letter in a loop until it is safe
+//        todo: use the addRandomTile method to fill the grid
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 cells[i][j] = new Cell(i, j, false, null);
@@ -34,6 +34,11 @@ public class Grid {
             }
         }
     }
+
+    public void addRandomTile(int row, int col) {
+        //choose letter and check each for words in grid, if it makes a word, choose a different letter in a loop until it is safe
+    }
+
 
 public void shiftTiles(int shiftAmount) {
     for (int i = 0; i < tiles.size(); i++) {
@@ -93,6 +98,27 @@ public void shiftTiles(int shiftAmount) {
         }
         return results;
     }
+//todo: test this by outputting lines for a random cell and checking if they are correct
+    public List<List<Tile>> getAllLinesForCell(int row, int col) {
+        List<List<Tile>> results = new ArrayList<>();
+        results.add(getLine(row, 1, Direction.ACROSS));
+        results.add(getLine(0, col, Direction.DOWN));
+        int dDownStartRow=row-col;
+        int dDownStartCol=0;
+        if (dDownStartRow<0) {
+            dDownStartCol = 0-dDownStartRow;
+            dDownStartRow=0;
+        }
+        int dUpStartRow=row+col;
+        int dUpStartCol=0;
+        if (dUpStartRow>height-1) {
+            dUpStartCol = dUpStartRow-height-1;
+            dUpStartRow=height-1;
+        }
+        results.add(getLine(row, col, Direction.DIAGONALDOWN));
+        results.add(getLine(row, col, Direction.DIAGONALUP));
+        return results;
+    }
 
 public List<Result> getAllResults() {
         //todo: only check for results if line has characters
@@ -113,7 +139,6 @@ public List<Result> getAllResults() {
 }
 
     public List<Tile> getLine(int row, int col, Direction direction) {
-//        todo: debug why down words aren't being found
         List<Tile> line = new ArrayList<>();
         while (row >= 0 && row < height && col < width) {
             if (getTile(row,col) == null) {
@@ -155,7 +180,6 @@ private void fillRowRandomly(int row) {
 
 public void removeTiles(Tile[] tilesToRemove) {
     for (Tile tile : tilesToRemove) {
-
         tiles.remove(tile);
     }
 }

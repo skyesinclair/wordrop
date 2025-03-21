@@ -10,9 +10,12 @@ import java.util.Scanner;
 public class Main {
     int width;
     int height;
+    static Grid grid;
 
     public static void main(String[] args) {
         boolean gameOver = false;
+        boolean setup = true;
+
 
         //test if words are in dictionary
         ArrayList emptyTiles = new ArrayList<>();
@@ -31,7 +34,7 @@ List<String> testWords = new ArrayList<>();
 
         //begin game
 
-        Grid grid = new Grid(10, 9, 10);
+        grid = new Grid(10, 9, 10);
 
         grid.printAllRows();
         processGrid(grid);
@@ -73,7 +76,7 @@ List<String> testWords = new ArrayList<>();
 
 
             grid.dropTiles();
-            grid.shiftTiles(grid.width/2);
+//            grid.shiftTiles(grid.width/2);
 grid.printAllRows();
             results = grid.getAllResults();
         }
@@ -98,6 +101,6 @@ grid.printAllRows();
     }
 
     private static Character getRandomLetter() {
-        return (char) (Math.random() * 26 + 'a');
+        return grid.getDictionary().getRandomCharacter();
     }
 }

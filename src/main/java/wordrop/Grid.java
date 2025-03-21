@@ -244,5 +244,9 @@ public void removeTiles(Tile[] tilesToRemove) {
         }
         return false;
     }
+
+    public Dictionary getDictionary() {
+        return dictionary;
+    }
 }
 
